@@ -1,50 +1,55 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useEffect } from "react";
 import styles from "./main.module.css";
-import { Task } from '../../utilsInterface';
-import Filters from './Filters/Filters';
-import AddModal from './AddModal/AddModal';
-import Tasks from './../Tasks/Tasks';
+import { Task } from "../../utilsInterface";
+import Filters from "./Filters/Filters";
+import AddModal from "./AddModal/AddModal";
+import Tasks from "./../Tasks/Tasks";
 
 type PropsMain = {
-  searchValue: string, 
-}
+  searchValue: string;
+};
 
-const Main: React.FC<PropsMain> = ({searchValue}) => {
+const Main: React.FC<PropsMain> = ({ searchValue }) => {
+  const [isModalOpen, setIsModalOpen]: [
+    boolean,
+    Dispatch<SetStateAction<boolean>>
+  ] = useState(false);
+  const [allTasks, setAllTasks] = useState<Task[]>([]);
+  const [activeFilter, setActiveFilter]: [
+    string,
+    Dispatch<SetStateAction<string>>
+  ] = useState("all");
 
-  const [isModalOpen, setIsModalOpen]:[boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
-  const [allTasks, setAllTasks]= useState<Task[]>([]);
-  const [activeFilter, setActiveFilter]:[string, Dispatch<SetStateAction<string>>] = useState("all");
-
-  function fetchData(){
+  function fetchData() {
     const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
     };
-    fetch('https://todolist-backend-app-nodb.onrender.com/getTasks', requestOptions)
-    .then((response) => response.json())
-       .then((data) => {
-        if(data.status === 200) setAllTasks(data.todos);
-       })
-       .catch((err) => {
-          console.log(err);
-       });
+    fetch(
+      "https://todolist-backend-app-nodb.onrender.com/getTasks",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 200) setAllTasks(data.todos);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   useEffect(() => {
     fetchData();
   }, []);
-
   const tasks = getSearchResults(searchValue, allTasks);
-  function filterTasks(tasks:Task[], activeFilter:string):Task[] {
+  function filterTasks(tasks: Task[], activeFilter: string): Task[] {
     if (!tasks.length) return tasks;
     else if (activeFilter == "all") return tasks;
     else if (activeFilter === "done")
       return tasks.filter(({ isDone }) => isDone);
-    else 
-      return tasks.filter(({ isDone }) => !isDone);
-  }//
-  function getSearchResults(searchValue:string, allTasks:Task[]):Task[] {
+    else return tasks.filter(({ isDone }) => !isDone);
+  }
+  function getSearchResults(searchValue: string, allTasks: Task[]): Task[] {
     if (searchValue === "") {
       return filterTasks(allTasks, activeFilter);
     } else {
@@ -57,26 +62,26 @@ const Main: React.FC<PropsMain> = ({searchValue}) => {
         activeFilter
       );
     }
-  }//
-
-
-
-  function addTask(task:Task) {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(task)
-    };
-    fetch('https://todolist-backend-app-nodb.onrender.com/addTasks', requestOptions)
-    .then(response => response.json())
-    .then(data =>data);
-    setAllTasks([...allTasks, task])
   }
-  function changeState(id:string) {
-    let newState= false;
-    const _tasks:Task[] = allTasks.map((item) => {
+  function addTask(task: Task) {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    };
+    fetch(
+      "https://todolist-backend-app-nodb.onrender.com/addTasks",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => data);
+    setAllTasks([...allTasks, task]);
+  }
+  function changeState(id: string) {
+    let newState = false;
+    const _tasks: Task[] = allTasks.map((item) => {
       if (item.id == id) {
-        newState= item.isDone;
+        newState = item.isDone;
         return {
           ...item,
           isDone: !item.isDone,
@@ -86,17 +91,20 @@ const Main: React.FC<PropsMain> = ({searchValue}) => {
       }
     });
     const requestOptions = {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({isDone: newState })
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ isDone: newState }),
     };
-    fetch(`https://todolist-backend-app-nodb.onrender.com/changedoneState/${id}`, requestOptions)
-    .then(response => response.json())
-    .then(data =>data);
+    fetch(
+      `https://todolist-backend-app-nodb.onrender.com/changedoneState/${id}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => data);
     setAllTasks(_tasks);
-  }//
-  function editTask(id:string, newTask:string) {
-    const _tasks:Task[] = allTasks.map((item) => {
+  }
+  function editTask(id: string, newTask: string) {
+    const _tasks: Task[] = allTasks.map((item) => {
       if (item.id == id) {
         return {
           ...item,
@@ -108,25 +116,31 @@ const Main: React.FC<PropsMain> = ({searchValue}) => {
     });
     setAllTasks(_tasks);
     const requestOptions = {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({task: newTask})
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ task: newTask }),
     };
-    fetch(`https://todolist-backend-app-nodb.onrender.com/editTask/${id}`, requestOptions)
-    .then(response => response.json())
-    .then(data =>data);
-  }//
-  function deleteTask(id:string, allTasks:Task[]) {
-    const _tasks:Task[] = allTasks.filter((item) => {
+    fetch(
+      `https://todolist-backend-app-nodb.onrender.com/editTask/${id}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => data);
+  }
+  function deleteTask(id: string, allTasks: Task[]) {
+    const _tasks: Task[] = allTasks.filter((item) => {
       return item.id !== id;
     });
     setAllTasks(_tasks);
     const requestOptions = {
-      method: 'DELETE',
+      method: "DELETE",
     };
-    fetch(`https://todolist-backend-app-nodb.onrender.com/deleteTask/${id}`, requestOptions)
-    .then(response => response.json())
-    .then(data =>data);
+    fetch(
+      `https://todolist-backend-app-nodb.onrender.com/deleteTask/${id}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => data);
     handleClose();
   }
   const handleClose = () => {
@@ -161,8 +175,7 @@ const Main: React.FC<PropsMain> = ({searchValue}) => {
       </section>
       {isModalOpen && (
         <AddModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
+          setIsModalOpen={setIsModalOpen}
           addTask={addTask}
         />
       )}
@@ -173,7 +186,7 @@ const Main: React.FC<PropsMain> = ({searchValue}) => {
         editTask={editTask}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;

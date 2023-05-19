@@ -1,24 +1,26 @@
-import React from 'react'
-import styles from './filters.module.css';
-import { Task } from '../../../utilsInterface';
+import React from "react";
+import styles from "./filters.module.css";
+import { Task } from "../../../utilsInterface";
 
 type PropsFilters = {
-  tasks: Task[], 
-  activeFilter: string, 
-  setActiveFilter:(val: string) => void, 
-}
+  tasks: Task[];
+  activeFilter: string;
+  setActiveFilter: (val: string) => void;
+};
 
-
-
-const Filters: React.FC<PropsFilters> = ({ tasks, activeFilter, setActiveFilter }) => {
+const Filters: React.FC<PropsFilters> = ({
+  tasks,
+  activeFilter,
+  setActiveFilter,
+}) => {
   const doneCount = tasks.filter(({ isDone }) => isDone).length;
   const pendingCount = tasks.length - doneCount;
 
-  function handleDoneClick():void {
+  function handleDoneClick(): void {
     if (activeFilter == "done") setActiveFilter("all");
     else setActiveFilter("done");
   }
-  function handlePendingClick():void {
+  function handlePendingClick(): void {
     if (activeFilter == "pending") setActiveFilter("all");
     else setActiveFilter("pending");
   }
@@ -38,7 +40,7 @@ const Filters: React.FC<PropsFilters> = ({ tasks, activeFilter, setActiveFilter 
         Pending (<span>{pendingCount}</span>)
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default Filters
+export default Filters;

@@ -1,17 +1,22 @@
-import React from 'react'
+import React from "react";
 import light from "./logo-light-theme.webp";
 import dark from "./logo-dark-theme-removebg-preview-_1_.webp";
-import styles from './header.module.css'
-import stylesToToggler from './toggler.module.css';
+import styles from "./header.module.css";
+import stylesToToggler from "./toggler.module.css";
 
 type PropsHeader = {
-  theme:boolean,
-  onChangeTheme:() => void,
-  searchValue: string, 
-  onChangeSearchValue:(val: string) => void,
-}
+  theme: boolean;
+  onChangeTheme: () => void;
+  searchValue: string;
+  onChangeSearchValue: (val: string) => void;
+};
 
-const Header: React.FC<PropsHeader> = ({ onChangeTheme, theme, searchValue, onChangeSearchValue }) => {
+const Header: React.FC<PropsHeader> = ({
+  onChangeTheme,
+  theme,
+  searchValue,
+  onChangeSearchValue,
+}) => {
   return (
     <header>
       <div role="img" aria-label="Logo" className={styles.logo}>
@@ -67,7 +72,7 @@ const Header: React.FC<PropsHeader> = ({ onChangeTheme, theme, searchValue, onCh
         <span className={stylesToToggler.labels} data-on data-off />
       </label>
     </header>
-);
-}
+  );
+};
 
-export default Header
+export default Header;

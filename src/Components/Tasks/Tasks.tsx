@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Dispatch, SetStateAction, useState } from "react";
 import styles from "./tasks.module.css";
 import { Task } from "../../utilsInterface";
 import ModalTask from "./ModaLTask/ModalTask";
-// import ModalTask from './ModaLTask/ModalTask';
 
 type PropsTasks = {
   tasks: Task[];
@@ -32,8 +30,6 @@ const Tasks: React.FC<PropsTasks> = ({
     Dispatch<SetStateAction<string>>
   ] = useState("");
 
-  // const renderBackdrop = (props) => <div className="backdrop" {...props} />;
-  const renderBackdrop = () => <div className="backdrop" />;
   const handleClose = (): void => {
     setIsModalOpen(false);
   };
@@ -127,11 +123,11 @@ const Tasks: React.FC<PropsTasks> = ({
       </ul>
       {isModalOpen && (
         <ModalTask
-        handleClose={handleClose}
-        deleteTask={deleteTask}
-        tasks={tasks}
-        id={idToDelete}
-      />
+          handleClose={handleClose}
+          deleteTask={deleteTask}
+          tasks={tasks}
+          id={idToDelete}
+        />
       )}
     </section>
   );
