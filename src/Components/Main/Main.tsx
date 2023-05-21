@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import styles from "./main.module.css";
 import { Task } from "../../utilsInterface";

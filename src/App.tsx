@@ -1,5 +1,5 @@
 import "vite/modulepreload-polyfill";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 import Header from "./Components/Header/Header";

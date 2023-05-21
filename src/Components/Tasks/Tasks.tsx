@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import styles from "./tasks.module.css";
 import { Task } from "../../utilsInterface";
 import ModalTask from "./ModaLTask/ModalTask";
