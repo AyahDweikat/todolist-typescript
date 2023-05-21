@@ -11,21 +11,19 @@ function getID() {
   return generateID().next().value;
 }
 type PropsAddModal = {
-  setIsModalOpen: (arg0: boolean) => void;
+  onChangeIsModalOpen: (arg0: boolean) => void;
   addTask: (arg0: Task) => void;
 };
 
-const AddModal: React.FC<PropsAddModal> = ({ setIsModalOpen, addTask }) => {
-  const [task, setTask]: [string, Dispatch<SetStateAction<string>>] =
-    useState("");
-  const [assignee, setAssignee]: [string, Dispatch<SetStateAction<string>>] =
-    useState("");
+const AddModal: React.FC<PropsAddModal> = ({ onChangeIsModalOpen, addTask }) => {
+  const [task, setTask] = useState<string>("");
+  const [assignee, setAssignee] = useState<string>("");
 
   function submitHandle(e: React.SyntheticEvent) {
     e.preventDefault();
     addTask({ id: `${getID()}`, task, assignee, isDone: false });
     resetHandle();
-    setIsModalOpen(false);
+    onChangeIsModalOpen(false);
   }
   function resetHandle() {
     setTask("");
@@ -62,7 +60,7 @@ const AddModal: React.FC<PropsAddModal> = ({ setIsModalOpen, addTask }) => {
               <button
                 type="button"
                 data-bs-dismiss="modal"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => onChangeIsModalOpen(false)}
               >
                 Cancel
               </button>

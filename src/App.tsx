@@ -7,12 +7,8 @@ import "./responsive.css";
 import Main from "./Components/Main/Main";
 
 function App() {
-  const [theme, setTheme]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState(false);
-  const [searchValue, setSearchValue]: [
-    string,
-    Dispatch<SetStateAction<string>>
-  ] = useState("");
+  const [theme, setTheme] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>("");
 
   function handleChangeTheme(): void {
     setTheme(!theme);

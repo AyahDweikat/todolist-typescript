@@ -15,20 +15,10 @@ const Tasks: React.FC<PropsTasks> = ({
   deleteTask,
   editTask,
 }) => {
-  const [isModalOpen, setIsModalOpen]: [
-    boolean,
-    Dispatch<SetStateAction<boolean>>
-  ] = useState(false);
-  const [inputValue, setInputValue]: [
-    string,
-    Dispatch<SetStateAction<string>>
-  ] = useState("");
-  const [idEdit, setIdEdit]: [string, Dispatch<SetStateAction<string>>] =
-    useState("");
-  const [idToDelete, setIdToDelete]: [
-    string,
-    Dispatch<SetStateAction<string>>
-  ] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [idEdit, setIdEdit] = useState<string>("");
+  const [idToDelete, setIdToDelete] = useState<string>("");
 
   const handleClose = (): void => {
     setIsModalOpen(false);

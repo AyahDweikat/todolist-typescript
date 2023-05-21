@@ -5,24 +5,24 @@ import { Task } from "../../../utilsInterface";
 type PropsFilters = {
   tasks: Task[];
   activeFilter: string;
-  setActiveFilter: (val: string) => void;
+  onChangeActiveFilter: (val: string) => void;
 };
 
 const Filters: React.FC<PropsFilters> = ({
   tasks,
   activeFilter,
-  setActiveFilter,
+  onChangeActiveFilter,
 }) => {
   const doneCount = tasks.filter(({ isDone }) => isDone).length;
   const pendingCount = tasks.length - doneCount;
 
   function handleDoneClick(): void {
-    if (activeFilter == "done") setActiveFilter("all");
-    else setActiveFilter("done");
+    if (activeFilter == "done") onChangeActiveFilter("all");
+    else onChangeActiveFilter("done");
   }
   function handlePendingClick(): void {
-    if (activeFilter == "pending") setActiveFilter("all");
-    else setActiveFilter("pending");
+    if (activeFilter == "pending") onChangeActiveFilter("all");
+    else onChangeActiveFilter("pending");
   }
 
   return (

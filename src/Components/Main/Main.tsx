@@ -11,15 +11,9 @@ type PropsMain = {
 };
 
 const Main: React.FC<PropsMain> = ({ searchValue }) => {
-  const [isModalOpen, setIsModalOpen]: [
-    boolean,
-    Dispatch<SetStateAction<boolean>>
-  ] = useState(false);
+  const [isModalOpen, setIsModalOpen]= useState<boolean>(false);
   const [allTasks, setAllTasks] = useState<Task[]>([]);
-  const [activeFilter, setActiveFilter]: [
-    string,
-    Dispatch<SetStateAction<string>>
-  ] = useState("all");
+  const [activeFilter, setActiveFilter] = useState<string>("all");
 
   function fetchData() {
     const requestOptions = {
@@ -170,12 +164,12 @@ const Main: React.FC<PropsMain> = ({ searchValue }) => {
         <Filters
           tasks={allTasks}
           activeFilter={activeFilter}
-          setActiveFilter={setActiveFilter}
+          onChangeActiveFilter={setActiveFilter}
         />
       </section>
       {isModalOpen && (
         <AddModal
-          setIsModalOpen={setIsModalOpen}
+          onChangeIsModalOpen={setIsModalOpen}
           addTask={addTask}
         />
       )}
