@@ -5,7 +5,7 @@ import styles from "./header.module.css";
 import stylesToToggler from "./toggler.module.css";
 
 type PropsHeader = {
-  theme: boolean;
+  isDarkTheme: boolean;
   onChangeTheme: () => void;
   searchValue: string;
   onChangeSearchValue: (val: string) => void;
@@ -13,7 +13,7 @@ type PropsHeader = {
 
 const Header: React.FC<PropsHeader> = ({
   onChangeTheme,
-  theme,
+  isDarkTheme,
   searchValue,
   onChangeSearchValue,
 }) => {
@@ -22,7 +22,7 @@ const Header: React.FC<PropsHeader> = ({
       <div role="img" aria-label="Logo" className={styles.logo}>
         <img
           id="logoHandle"
-          src={theme ? dark : light}
+          src={isDarkTheme ? dark : light}
           role="logo"
           alt="todoistic logo"
         />
