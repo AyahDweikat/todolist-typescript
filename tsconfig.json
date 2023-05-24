@@ -5,7 +5,8 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "allowJs": true,
-    "checkJs": false,
+    "checkJs": true,
+    "noImplicitAny": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
