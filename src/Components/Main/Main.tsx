@@ -151,6 +151,7 @@ const Main: React.FC<PropsMain> = ({ searchValue }) => {
             today
           </h2>
           <button
+          name="newTask"
             onClick={() => {
               setIsModalOpen(true);
             }}

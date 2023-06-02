@@ -21,8 +21,10 @@ const AddModal: React.FC<PropsAddModal> = ({ onChangeIsModalOpen, addTask }) => 
 
   function submitHandle(e: React.SyntheticEvent) {
     e.preventDefault();
-    addTask({ id: `${getID()}`, task, assignee, isDone: false });
-    resetHandle();
+    if(task && assignee){
+      addTask({ id: `${getID()}`, task, assignee, isDone: false });
+      resetHandle();
+    }
     onChangeIsModalOpen(false);
   }
   function resetHandle() {
@@ -30,7 +32,7 @@ const AddModal: React.FC<PropsAddModal> = ({ onChangeIsModalOpen, addTask }) => 
     setAssignee("");
   }
   return (
-    <div>
+    <div id="addModal">
       <section>
         <div className={styles.modal}>
           <h3>Add a New Task</h3>
@@ -41,6 +43,7 @@ const AddModal: React.FC<PropsAddModal> = ({ onChangeIsModalOpen, addTask }) => 
                 autoFocus
                 type="text"
                 value={task}
+                id="task"
                 onChange={(e) => setTask(e.target.value)}
                 className="task"
                 placeholder="Task"
@@ -51,6 +54,7 @@ const AddModal: React.FC<PropsAddModal> = ({ onChangeIsModalOpen, addTask }) => 
               <input
                 type="text"
                 value={assignee}
+                id="assignee"
                 onChange={(e) => setAssignee(e.target.value)}
                 className="assignee"
                 placeholder="Assignee"
