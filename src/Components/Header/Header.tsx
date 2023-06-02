@@ -33,6 +33,7 @@ const Header: React.FC<PropsHeader> = ({
           <input
             type="text"
             id="search"
+            name="search"
             className={styles.search}
             value={searchValue}
             onChange={(e) => onChangeSearchValue(e.target.value)}
@@ -41,7 +42,12 @@ const Header: React.FC<PropsHeader> = ({
         </label>
       </div>
       <label className={stylesToToggler.toggle}>
-        <input type="checkbox" onChange={() => onChangeTheme()} />
+        <input
+          type="checkbox"
+          onClick={() => onChangeTheme()}
+          placeholder="themeToggler"
+          value={`${isDarkTheme}`}
+        />
         <span className={stylesToToggler.slider} />
         <svg
           className={stylesToToggler.sun}

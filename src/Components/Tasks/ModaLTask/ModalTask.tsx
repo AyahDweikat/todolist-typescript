@@ -15,7 +15,7 @@ const ModalTask: React.FC<PropsModalTask> = ({
   tasks,
 }) => {
   return (
-    <div className={styles.modal}>
+    <div id="deleteModal" className={styles.modal}>
       <h3>Delete Task</h3>
       <p>Are you sure you want to delete this task?</p>
       <span>

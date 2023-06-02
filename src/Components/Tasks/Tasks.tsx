@@ -86,6 +86,7 @@ const Tasks: React.FC<PropsTasks> = ({
               <div className={styles.delEditBtn}>
                 <button
                   className={styles.deleteBtn}
+                  id="deleteBtn"
                   onClick={() => {
                     setIsModalOpen(true);
                     setIdToDelete(item.id);
@@ -98,6 +99,7 @@ const Tasks: React.FC<PropsTasks> = ({
                 </button>
                 <button
                   className={styles.btnEdit}
+                  id="btnEdit"
                   onClick={() => {
                     setInputValue(item.task);
                     turnToEdit(item.id);
